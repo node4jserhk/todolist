@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  section#todoapp
+    header#header
+      h1 Todos
+      input(placeholder="What needs to be done?", autofocus)#new-todo
+    section#main
+      input(type="checkbox")#toggle-all
+      label(for="toggle-all") Mark all as complete
+      ul#todo-list
+    footer#footer
+      span#todo-count
+      ul#filters
+        li
+          a(href="#/", class="selected") All
+        li
+          a(href="#/active") Active
+        li
+          a(href="#/completed") Completed
+        button#clear-completed Clear completed
