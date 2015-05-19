@@ -27,7 +27,7 @@ var todo = {
     var that = this;
     if (event.which == 13){
       $.post("/todos", {
-        item: this.newTodo.value
+        item: this.newTodo.val()
       }).done(function (data){
         that.newTodo.val("");
         that.render();
