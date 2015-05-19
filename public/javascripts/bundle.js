@@ -9248,6 +9248,25 @@ var todo = {
     }
   },
 
+  listItem: function () {
+    var that = this;
+    this.todoList.empty();
+    $.getJSON("/todos", function (data){
+      $.each(data, function (index, todo){
+        var item = $("<li>")
+                      .append($("<div>")
+                        .append($("<input type='checkbox' class='toggle'>"))
+                        .append($("<label>").text(todo.item))
+                        .append($("<button class='destroy'>")));
+        if (todo.completed) {
+          item.addClass("completed");
+          item.find("input").prop("checked", true);
+        }
+        that.todoList.append(item);
+      });
+    });
+  },
+
   count: function () {
     return this.todoList.find("li").length;
   },
@@ -9258,6 +9277,8 @@ var todo = {
     } else {
       this.clearbutton.hide();
     }
+
+    this.listItem();
   },
 
 };
