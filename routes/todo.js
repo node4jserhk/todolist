@@ -16,4 +16,13 @@ module.exports = function(app) {
       res.json(200, todo);
     });
   });
+
+  app.get('/todos', function (req, res){
+    Todo.find({}).sort('completed -updated_at').exec(function (err, todos){
+      if(err) {
+        return err;
+      }
+      res.json(200, todos);
+    });
+  });
 }
