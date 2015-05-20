@@ -13,7 +13,7 @@ module.exports = function(app) {
       if (err) {
         return err;
       }
-      res.json(200, todo);
+      res.status(200).json(todo);
     });
   });
 
@@ -22,7 +22,7 @@ module.exports = function(app) {
       if(err) {
         return err;
       }
-      res.json(200, todos);
+      res.status(200).json(todos);
     });
   });
 }
