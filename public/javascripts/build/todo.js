@@ -10638,12 +10638,16 @@ var todo = {
   createItem: function (event) {
     var that = this;
     if (event.which == 13){
-      $.post("/todos", {
-        item: this.newTodo.val()
-      }).done(function (data){
+      if (this.newTodo.val().trim() !== '') {
+        $.post("/todos", {
+          item: this.newTodo.val().trim()
+        }).done(function (data){
+          that.newTodo.val("");
+          that.render();
+        });
+      } else {
         that.newTodo.val("");
-        that.render();
-      });
+      }
     }
   },
 
@@ -10686,5 +10690,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_92551d02.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6c4bf741.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])

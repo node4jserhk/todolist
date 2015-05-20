@@ -26,12 +26,16 @@ var todo = {
   createItem: function (event) {
     var that = this;
     if (event.which == 13){
-      $.post("/todos", {
-        item: this.newTodo.val()
-      }).done(function (data){
+      if (this.newTodo.val().trim() !== '') {
+        $.post("/todos", {
+          item: this.newTodo.val().trim()
+        }).done(function (data){
+          that.newTodo.val("");
+          that.render();
+        });
+      } else {
         that.newTodo.val("");
-        that.render();
-      });
+      }
     }
   },
 
