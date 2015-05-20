@@ -44,7 +44,7 @@ var todo = {
     this.todoList.empty();
     $.getJSON("/todos", function (data){
       $.each(data, function (index, todo){
-        var item = $("<li>")
+        var item = $("<li>").attr('id', todo.id)
                       .append($("<div>")
                         .append($("<input type='checkbox' class='toggle'>"))
                         .append($("<label>").text(todo.item))

@@ -10656,7 +10656,7 @@ var todo = {
     this.todoList.empty();
     $.getJSON("/todos", function (data){
       $.each(data, function (index, todo){
-        var item = $("<li>")
+        var item = $("<li>").attr('id', todo.id)
                       .append($("<div>")
                         .append($("<input type='checkbox' class='toggle'>"))
                         .append($("<label>").text(todo.item))
@@ -10690,5 +10690,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6c4bf741.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bb01d2f2.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])
