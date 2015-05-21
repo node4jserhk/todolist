@@ -35,4 +35,13 @@ module.exports = function(app) {
       res.status(200).json(todo);
     });
   });
+
+  app.delete('/todos/:id', function (req, res){
+    Todo.remove({id: req.params.id}, function (err){
+      if (err) {
+        return err;
+      }
+      res.status(200).json({delete: 'success'});
+    });
+  });
 }

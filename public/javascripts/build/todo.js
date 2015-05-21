@@ -10673,6 +10673,7 @@ var todo = {
             item.find('.edit').trigger('focusout');
           }
         });
+        item.find('.destroy').on('click', that.deleteItem.bind(that));
         that.todoList.append(item);
       });
       that.footer();
@@ -10690,6 +10691,18 @@ var todo = {
         item: item.find('.edit').val(),
         completed: item.find('input').prop('checked')
       }
+    }).success(function () {
+      that.render();
+    });
+  },
+
+  deleteItem: function (event) {
+    var id = $(event.target).closest("li").attr('id');
+    var item = $('#' + id);
+    var that = this;
+    $.ajax({
+      url: '/todos/' + id,
+      method: 'DELETE'
     }).success(function () {
       that.render();
     });
@@ -10729,5 +10742,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_11eedc73.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_67770f45.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])

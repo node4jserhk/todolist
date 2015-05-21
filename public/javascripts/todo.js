@@ -61,6 +61,7 @@ var todo = {
             item.find('.edit').trigger('focusout');
           }
         });
+        item.find('.destroy').on('click', that.deleteItem.bind(that));
         that.todoList.append(item);
       });
       that.footer();
@@ -78,6 +79,18 @@ var todo = {
         item: item.find('.edit').val(),
         completed: item.find('input').prop('checked')
       }
+    }).success(function () {
+      that.render();
+    });
+  },
+
+  deleteItem: function (event) {
+    var id = $(event.target).closest("li").attr('id');
+    var item = $('#' + id);
+    var that = this;
+    $.ajax({
+      url: '/todos/' + id,
+      method: 'DELETE'
     }).success(function () {
       that.render();
     });
