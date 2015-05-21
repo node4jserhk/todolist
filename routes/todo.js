@@ -44,4 +44,13 @@ module.exports = function(app) {
       res.status(200).json({delete: 'success'});
     });
   });
+
+  app.delete('/todos/all/completed', function (req, res){
+    Todo.remove({completed: true}, function (err){
+      if (err) {
+        return err;
+      }
+      res.status(200).json({delete: 'success'});
+    });
+  });
 }

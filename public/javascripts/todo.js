@@ -22,6 +22,7 @@ var todo = {
 
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
+    this.clearbutton.on('click', this.deleteCompleted.bind(this));
   },
 
   createItem: function (event) {
@@ -90,6 +91,16 @@ var todo = {
     var that = this;
     $.ajax({
       url: '/todos/' + id,
+      method: 'DELETE'
+    }).success(function () {
+      that.render();
+    });
+  },
+
+  deleteCompleted: function (){
+    var that = this;
+    $.ajax({
+      url: '/todos/all/completed',
       method: 'DELETE'
     }).success(function () {
       that.render();

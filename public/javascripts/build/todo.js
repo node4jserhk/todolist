@@ -10634,6 +10634,7 @@ var todo = {
 
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
+    this.clearbutton.on('click', this.deleteCompleted.bind(this));
   },
 
   createItem: function (event) {
@@ -10708,6 +10709,16 @@ var todo = {
     });
   },
 
+  deleteCompleted: function (){
+    var that = this;
+    $.ajax({
+      url: '/todos/all/completed',
+      method: 'DELETE'
+    }).success(function () {
+      that.render();
+    });
+  },
+
   countLeft: function () {
     var left = this.todoList.find('li').length
                - this.todoList.find('.completed').length;
@@ -10742,5 +10753,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_67770f45.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a588cb8c.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])
