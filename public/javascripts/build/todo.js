@@ -10655,15 +10655,24 @@ var todo = {
       that.todoList.empty();
       $.each(data, function (index, todo){
         var item = $("<li>").attr('id', todo.id)
-                      .append($("<div>")
+                      .append($("<div class='view'>")
                         .append($("<input type='checkbox' class='toggle'>"))
                         .append($("<label>").text(todo.item))
-                        .append($("<button class='destroy'>")));
+                        .append($("<button class='destroy'>")))
+                      .append($("<input class='edit'>").val(todo.item)
+                    );
         if (todo.completed) {
           item.addClass("completed");
           item.find(".toggle").prop("checked", true);
         }
         item.find('.toggle').on('change', that.updateItem.bind(that));
+        item.find('label').on('dblclick', that.edit.bind(that));
+        item.find('.edit').on('focusout', that.updateItem.bind(that));
+        item.find('.edit').on('keyup', function (event) {
+          if(event.which == 13){
+            item.find('.edit').trigger('focusout');
+          }
+        });
         that.todoList.append(item);
       });
       that.footer();
@@ -10678,7 +10687,7 @@ var todo = {
       url: '/todos/' + id,
       method: 'PUT',
       data: {
-        item: item.find('label').text(),
+        item: item.find('.edit').val(),
         completed: item.find('input').prop('checked')
       }
     }).success(function () {
@@ -10705,6 +10714,11 @@ var todo = {
     }
   },
 
+  edit: function (e) {
+	  var input = $(e.target).closest('li').addClass('editing').find('.edit');
+		input.val(input.val()).focus();
+	},
+
   render: function () {
     this.listItem();
   },
@@ -10715,5 +10729,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_df3a8c24.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_11eedc73.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])
