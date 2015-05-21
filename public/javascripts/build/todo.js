@@ -10728,14 +10728,18 @@ var todo = {
 
   footer: function () {
     if (this.countLeft() > 0) {
-      this.clearbutton.show();
       this.todoCount.show();
       var left = '<strong>' + this.countLeft()
                  + '</strong> items left';
       this.todoCount.html(left);
     } else {
-      this.clearbutton.hide();
       this.todoCount.hide();
+    }
+
+    if (this.todoList.find('.completed').length > 0){
+      this.clearbutton.show();
+    } else {
+      this.clearbutton.hide();
     }
   },
 
@@ -10760,5 +10764,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_60af356a.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_c2347c75.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])

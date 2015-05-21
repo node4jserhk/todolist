@@ -116,14 +116,18 @@ var todo = {
 
   footer: function () {
     if (this.countLeft() > 0) {
-      this.clearbutton.show();
       this.todoCount.show();
       var left = '<strong>' + this.countLeft()
                  + '</strong> items left';
       this.todoCount.html(left);
     } else {
-      this.clearbutton.hide();
       this.todoCount.hide();
+    }
+
+    if (this.todoList.find('.completed').length > 0){
+      this.clearbutton.show();
+    } else {
+      this.clearbutton.hide();
     }
   },
 
