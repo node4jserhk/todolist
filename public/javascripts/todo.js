@@ -23,6 +23,7 @@ var todo = {
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
     this.clearbutton.on('click', this.deleteCompleted.bind(this));
+    this.toggleAll.on('click', this.all.bind(this));
   },
 
   createItem: function (event) {
@@ -130,6 +131,12 @@ var todo = {
 	  var input = $(e.target).closest('li').addClass('editing').find('.edit');
 		input.val(input.val()).focus();
 	},
+
+  all: function () {
+    var isToggle = this.toggleAll.prop('checked');
+    this.todoList.find('input[type="checkbox"]').prop('checked', isToggle)
+      .trigger('change');
+  },
 
   render: function () {
     this.listItem();
