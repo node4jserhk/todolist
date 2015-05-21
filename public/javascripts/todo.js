@@ -13,15 +13,15 @@ var todo = {
     this.header = $("#header");
     this.newTodo = $("#new-todo");
     this.toggleAll = $("#toggle-all");
+    this.toggle = $(".toggle");
     this.todoList = $("#todo-list");
-    this.todoCount = $("todo-count");
+    this.todoCount = $("#todo-count");
     this.clearbutton = $("#clear-completed");
 
   },
 
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
-    this.todoList.on('click', this.updateItem.bind(this));
   },
 
   createItem: function (event) {
@@ -30,13 +30,10 @@ var todo = {
       if (this.newTodo.val().trim() !== '') {
         $.post("/todos", {
           item: this.newTodo.val().trim()
-        }).done(function (data){
-          that.newTodo.val("");
-          that.render();
         });
-      } else {
-        that.newTodo.val("");
       }
+      that.newTodo.val("");
+      that.render();
     }
   },
 
@@ -52,15 +49,17 @@ var todo = {
                         .append($("<button class='destroy'>")));
         if (todo.completed) {
           item.addClass("completed");
-          item.find("input").prop("checked", true);
+          item.find(".toggle").prop("checked", true);
         }
+        item.find('.toggle').on('change', that.updateItem.bind(that));
         that.todoList.append(item);
       });
+      that.footer();
     });
   },
 
-  updateItem: function (e) {
-    var id = $(e.target).closest("li").attr('id');
+  updateItem: function (event) {
+    var id = $(event.target).closest("li").attr('id');
     var item = $('#' + id);
     var that = this;
     $.ajax({
@@ -75,17 +74,26 @@ var todo = {
     });
   },
 
-  count: function () {
-    return this.todoList.find("li").length;
+  countLeft: function () {
+    var left = this.todoList.find('li').length
+               - this.todoList.find('.completed').length;
+    return left;
+  },
+
+  footer: function () {
+    if (this.countLeft() > 0) {
+      this.clearbutton.show();
+      this.todoCount.show();
+      var left = '<strong>' + this.countLeft()
+                 + '</strong> items left';
+      this.todoCount.html(left);
+    } else {
+      this.clearbutton.hide();
+      this.todoCount.hide();
+    }
   },
 
   render: function () {
-    if (this.count() > 0) {
-      this.clearbutton.show();
-    } else {
-      this.clearbutton.hide();
-    }
-
     this.listItem();
   },
 
