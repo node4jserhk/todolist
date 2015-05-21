@@ -8,7 +8,8 @@ module.exports = function(app) {
       id: Math.random().toString(36).substr(2, 9),
       item: req.body.item,
       completed: false,
-      updated_at: Date.now()
+      updated_at: Date.now(),
+      created_at: Date.now()
     }).save(function (err, todo, count){
       if (err) {
         return err;
@@ -18,7 +19,7 @@ module.exports = function(app) {
   });
 
   app.get('/todos', function (req, res){
-    Todo.find({}).sort('completed -updated_at').exec(function (err, todos){
+    Todo.find({}).sort('completed -created_at').exec(function (err, todos){
       if (err) {
         return err;
       }

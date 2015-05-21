@@ -5,7 +5,8 @@ var Todo = new Schema({
   id: String,
   item: String,
   completed: Boolean,
-  updated_at: Date
+  updated_at: Date,
+  created_at: Date
 });
 
 mongoose.model('Todo', Todo);
