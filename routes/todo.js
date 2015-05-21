@@ -19,10 +19,19 @@ module.exports = function(app) {
 
   app.get('/todos', function (req, res){
     Todo.find({}).sort('completed -updated_at').exec(function (err, todos){
-      if(err) {
+      if (err) {
         return err;
       }
       res.status(200).json(todos);
+    });
+  });
+
+  app.put('/todos/:id', function (req, res){
+    Todo.findOneAndUpdate({id: req.params.id}, {item: req.body.item, completed: req.body.completed, updated_at: Date.now()}, function (err, todo){
+      if (err) {
+        return err;
+      }
+      res.status(200).json(todo);
     });
   });
 }

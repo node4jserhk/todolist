@@ -21,6 +21,7 @@ var todo = {
 
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
+    this.todoList.on('click', this.updateItem.bind(this));
   },
 
   createItem: function (event) {
@@ -41,8 +42,8 @@ var todo = {
 
   listItem: function () {
     var that = this;
-    this.todoList.empty();
     $.getJSON("/todos", function (data){
+      that.todoList.empty();
       $.each(data, function (index, todo){
         var item = $("<li>").attr('id', todo.id)
                       .append($("<div>")
@@ -55,6 +56,22 @@ var todo = {
         }
         that.todoList.append(item);
       });
+    });
+  },
+
+  updateItem: function (e) {
+    var id = $(e.target).closest("li").attr('id');
+    var item = $('#' + id);
+    var that = this;
+    $.ajax({
+      url: '/todos/' + id,
+      method: 'PUT',
+      data: {
+        item: item.find('label').text(),
+        completed: item.find('input').prop('checked')
+      }
+    }).success(function () {
+      that.render();
     });
   },
 

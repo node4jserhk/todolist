@@ -10633,6 +10633,7 @@ var todo = {
 
   bindEvents: function () {
     this.newTodo.on('keypress', this.createItem.bind(this));
+    this.todoList.on('click', this.updateItem.bind(this));
   },
 
   createItem: function (event) {
@@ -10653,8 +10654,8 @@ var todo = {
 
   listItem: function () {
     var that = this;
-    this.todoList.empty();
     $.getJSON("/todos", function (data){
+      that.todoList.empty();
       $.each(data, function (index, todo){
         var item = $("<li>").attr('id', todo.id)
                       .append($("<div>")
@@ -10667,6 +10668,22 @@ var todo = {
         }
         that.todoList.append(item);
       });
+    });
+  },
+
+  updateItem: function (e) {
+    var id = $(e.target).closest("li").attr('id');
+    var item = $('#' + id);
+    var that = this;
+    $.ajax({
+      url: '/todos/' + id,
+      method: 'PUT',
+      data: {
+        item: item.find('label').text(),
+        completed: item.find('input').prop('checked')
+      }
+    }).success(function () {
+      that.render();
     });
   },
 
@@ -10690,5 +10707,5 @@ $(document).ready(function(){
   todo.init();
 });
 
-}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bb01d2f2.js","/")
+}).call(this,require("oMfpAn"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a62e4435.js","/")
 },{"buffer":1,"jquery":5,"oMfpAn":4}]},{},[6])
