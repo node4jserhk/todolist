@@ -317,6 +317,7 @@ html #clear-completed:active {
 	text-decoration: none;
 	cursor: pointer;
 	position: relative;
+	margin-right: 3mm;
 }
 
 #clear-completed:hover {
